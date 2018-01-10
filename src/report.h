@@ -51,7 +51,7 @@
   }
 
 namespace libsemigroups {
-
+  // CAUTION: The comments in this file are out of date.
   //
   // This is a simple class which can be used to print information to
   // the standard output, reporting the class and function name (if set), and
@@ -63,7 +63,7 @@ namespace libsemigroups {
   //    reporter("apples") << "the window is open";
   //
   // Then it will put the following to std::cout, if the class name is not set
-  // when the <Reporter> is constructed or by <Reporter::set_class_name>:
+  // when the <Reporter> is constructed.
   //
   //    Thread #2: "bananas": the dvd player is broken
   //    Thread #0: "apples": the window is open
@@ -235,13 +235,13 @@ namespace libsemigroups {
       if (status == 0) {  // successfully demangled
         std::string full = std::string(ptr);
         // find the last :: in the class name <full>
-        size_t prev = 0, pos = 0;
-        while (pos != std::string::npos) {
-          prev = pos;
-          pos  = full.find("::", pos + 1);
+        size_t prev = 0, first = 0, last = full.find("<");
+        while (first != std::string::npos && first < last) {
+          prev  = first;
+          first = full.find("::", first + 1);
         }
         if (prev != 0) {
-          return full.substr(prev + 2, std::string::npos);
+          return full.substr(prev + 2, last - prev - 2);
         } else {
           return full;
         }
