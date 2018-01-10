@@ -3,7 +3,9 @@
 ##############################################################################
 
 AM_CXXFLAGS =  -I. -Wall -Wextra -pedantic -Wno-c++11-extensions -std=c++11 
-AM_CXXFLAGS += -g -O3 -march=native
+# FIXME the flags below -mavx and -flax must only be included if compiling with
+# HPCombi enabled these flags being available
+AM_CXXFLAGS += -g -O3 -march=native -mavx -flax-vector-conversions
 AM_LDFLAGS  =  -no-undefined
 
 ACLOCAL_AMFLAGS	= -I m4
