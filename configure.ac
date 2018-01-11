@@ -65,6 +65,7 @@ AS_IF([test "x$enable_debug" = xyes],
 
 AM_CONDITIONAL([LIBSEMIGROUPS_DEBUG], [test "x$enable_debug" = xyes])
 
+# Check if stats mode is enabled
 AC_ARG_ENABLE([stats],
     [AS_HELP_STRING([--enable-stats], [enable stats mode])],
     [AC_DEFINE([STATS], [1], [define if building in stats mode])],
@@ -72,6 +73,42 @@ AC_ARG_ENABLE([stats],
     )
 AC_MSG_CHECKING([whether to enable stats mode])
 AC_MSG_RESULT([$enable_stats])
+
+# Check if HPCombi is enabled
+AC_ARG_ENABLE([hpcombi],
+    [AS_HELP_STRING([--enable-hpcombi], [enable HPCombi])],
+    [],
+    [enable_hpcombi=no]
+    )
+AC_MSG_CHECKING([whether to enable HPCombi])
+AC_MSG_RESULT([$enable_hpcombi])
+
+AS_IF([test "x$enable_hpcombi" = xyes],
+      [AC_CHECK_FILE([extern/HPCombi/VERSION], 
+                     [], 
+                     [AC_MSG_WARN([HPCombi is not available, ignoring --enable-hpcombi])
+                      [enable_hpcombi=no]])])
+
+AS_IF([test "x$enable_hpcombi" = xyes],
+      [AC_MSG_CHECKING([the present version of HPCombi])
+      [cat extern/HPCombi/VERSION]])
+
+AS_IF([test "x$enable_hpcombi" = xyes],
+      [AC_MSG_CHECKING([the required version of HPCombi])
+      [cat extern/.HPCombi_VERSION]])
+
+AS_IF([test "x$enable_hpcombi" = xyes],
+[AS_IF([! cmp -s extern/HPCombi/VERSION extern/.HPCombi_VERSION],
+       [AC_MSG_WARN([the version of HPCombi that is present is incorrect, ignoring --enable-hpcombi])
+        [enable_hpcombi=no]])])
+
+dnl # FIXME check for intrinsics
+
+AS_IF([test "x$enable_hpcombi" = xyes],
+      [AC_DEFINE([USE_HPCOMBI], [1], [define if building with HPCombi])])
+
+dnl # the following is used in Makefile.am
+AM_CONDITIONAL([LIBSEMIGROUPS_USE_HPCOMBI], [test "x$enable_hpcombi" = xyes])
 
 # Check if code coverage mode is enabled
 AX_CODE_COVERAGE()

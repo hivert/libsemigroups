@@ -16,6 +16,10 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
 
+#include "../src/libsemigroups-config.h"
+
+#ifdef LIBSEMIGROUPS_USE_HPCOMBI
+
 #include "../extern/HPCombi/include/perm16.hpp"
 #include "../src/semigroups.h"
 #include "catch.hpp"
@@ -113,3 +117,5 @@ TEST_CASE("HPCombi 03: full transformation monoid 8",
   REQUIRE(S.size() == 16777216);
   S.set_report(false);
 }
+
+#endif

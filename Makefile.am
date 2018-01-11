@@ -3,9 +3,7 @@
 ##############################################################################
 
 AM_CXXFLAGS =  -I. -Wall -Wextra -pedantic -Wno-c++11-extensions -std=c++11 
-# FIXME the flags below -mavx and -flax must only be included if compiling with
-# HPCombi enabled these flags being available
-AM_CXXFLAGS += -g -O3 -march=native -mavx -flax-vector-conversions
+AM_CXXFLAGS += -g -O3 -march=native 
 AM_LDFLAGS  =  -no-undefined
 
 ACLOCAL_AMFLAGS	= -I m4
@@ -96,6 +94,9 @@ lstest_SOURCES += tests/timer.test.cc     tests/hpcombi.test.cc
 lstest_CPPFLAGS = -DCONFIG_H $(CODE_COVERAGE_CPPFLAGS)
 lstest_CFLAGS = $(CODE_COVERAGE_CFLAGS) 
 lstest_CXXFLAGS = $(AM_CXXFLAGS) $(CODE_COVERAGE_CXXFLAGS)
+if LIBSEMIGROUPS_USE_HPCOMBI
+lstest_CXXFLAGS += -mavx -flax-vector-conversions
+endif 
 
 lstest_LIBS = $(AM_LDFLAGS) $(CODE_COVERAGE_LIBS)
 lstest_LDADD = libsemigroups.la
