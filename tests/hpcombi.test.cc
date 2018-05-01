@@ -118,4 +118,34 @@ TEST_CASE("HPCombi 03: full transformation monoid 8",
   S.set_report(false);
 }
 
+TEST_CASE("HPCombi 04: Rook monoid of size 4",
+          "[extreme][hpcombi][finite][04]") {
+  Semigroup<Transf16, std::hash<Transf16>, std::equal_to<Transf16>> S({
+      Transf16({0, 1, 2, 3, 4}),
+      Transf16({0, 0, 2, 3, 4}),
+      Transf16({0, 2, 1, 3, 4}),
+      Transf16({0, 1, 3, 2, 4}),
+        Transf16({0, 1, 2, 4, 3})});
+  S.reserve(std::pow(8, 8));
+  S.set_report(true);
+  REQUIRE(S.size() == 209);
+  S.set_report(false);
+}
+
+TEST_CASE("HPCombi 05: 0-Rook monoid of size 4",
+          "[extreme][hpcombi][finite][05]") {
+  Semigroup<Renner0Element,
+            std::hash<Renner0Element>,
+            std::equal_to<Renner0Element>> S({
+      Renner0Element({0, 1, 2, 3, 4}),
+      Renner0Element({0, 0, 2, 3, 4}),
+      Renner0Element({0, 2, 1, 3, 4}),
+      Renner0Element({0, 1, 3, 2, 4}),
+        Renner0Element({0, 1, 2, 4, 3})});
+  S.reserve(std::pow(8, 8));
+  S.set_report(true);
+  REQUIRE(S.size() == 209);
+  S.set_report(false);
+}
+
 #endif
