@@ -31,6 +31,7 @@
 
 #include "blocks.h"
 #include "libsemigroups-debug.h"
+#include "libsemigroups-exception.h"
 #include "recvec.h"
 #include "semiring.h"
 
@@ -602,6 +603,13 @@ namespace libsemigroups {
   class Transformation : public PartialTransformation<T, Transformation<T>> {
    public:
     using PartialTransformation<T, Transformation<T>>::PartialTransformation;
+
+    void validate() {
+      T max = this->_vector->size();
+      for (auto const& val : *(this->_vector))
+        if (not(0 <= val and val < max))
+          throw LibsemigroupsException("Transformation entry out of bound");
+    }
 
     //! Returns a pointer to a copy of \c this.
     //!
@@ -1438,5 +1446,14 @@ namespace libsemigroups {
     }
     delete cont;
   }
+
+
+  template<typename T, typename ...Args> T
+    inline make_element(Args&&... args) {
+    T res (std::forward<Args>(args)...);
+    res.validate();
+    return res;
+  }
+
 }  // namespace libsemigroups
 #endif  // LIBSEMIGROUPS_SRC_ELEMENTS_H_

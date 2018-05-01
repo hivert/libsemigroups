@@ -192,6 +192,35 @@ TEST_CASE("Transformation 06: u_int32_t delete/copy",
   delete expected;
 }
 
+TEST_CASE("Transformation 07: u_int16_t checkargs",
+          "[quick][element][transformation][07]") {
+
+  REQUIRE_NOTHROW(make_element<Transformation<u_int16_t>>(
+                    std::vector<u_int16_t>()));
+  REQUIRE_NOTHROW(make_element<Transformation<u_int16_t>>(
+                    std::vector<u_int16_t>({0})));
+  REQUIRE_THROWS_AS(make_element<Transformation<u_int16_t>>(
+                     std::vector<u_int16_t>({1})),
+                   LibsemigroupsException);
+
+  REQUIRE_NOTHROW(make_element<Transformation<u_int16_t>>(
+                    std::vector<u_int16_t>({0, 1, 2})));
+  REQUIRE_NOTHROW(make_element<Transformation<u_int16_t>>(
+                    std::initializer_list<u_int16_t>({0, 1, 2})));
+  // Implicit type initializer lists are not accepted.
+  // REQUIRE_NOTHROW(make_element<Transformation<u_int16_t>>({0, 1, 2})));
+
+  std::vector<u_int16_t>* pimgs = new std::vector<u_int16_t>({1, 2, 3});
+  REQUIRE_THROWS_AS(make_element<Transformation<u_int16_t>>(pimgs),
+                    LibsemigroupsException);
+  REQUIRE_THROWS_AS(
+    make_element<Transformation<u_int16_t>>(std::vector<u_int16_t>({1, 2, 3})),
+    LibsemigroupsException);
+  REQUIRE_THROWS_AS(make_element<Transformation<u_int16_t>>(
+                      std::initializer_list<u_int16_t>({1, 2, 3})),
+                    LibsemigroupsException);
+}
+
 TEST_CASE("PartialPerm 01: u_int16_t methods", "[quick][element][pperm][01]") {
   Element* x = new PartialPerm<u_int16_t>({4, 5, 0}, {10, 0, 1}, 10);
   Element* y = new PartialPerm<u_int16_t>({4, 5, 0}, {10, 0, 1}, 10);
