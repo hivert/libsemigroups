@@ -384,62 +384,63 @@ namespace libsemigroups {
   }
 
   std::vector<relation_type> PlanarPartitionMonoid(size_t l) {
-      std::vector<size_t> p;
-      std::vector<relation_type> rels{};
+    std::vector<size_t>        p;
+    std::vector<relation_type> rels{};
 
-      // size_t id = 0; // the identity
-      p.push_back(0); p.push_back(0); // unused
-      size_t genid = 1;
-      for (size_t i = 2; i <= 2*l; ++i) {
-          p.push_back(genid);   // p_i is p(2*i) and p_{i+1/2} is p(2*i+1)
-          genid++;
-      }
+    // size_t id = 0; // the identity
+    p.push_back(0);
+    p.push_back(0);  // unused
+    size_t genid = 1;
+    for (size_t i = 2; i <= 2 * l; ++i) {
+      p.push_back(genid);  // p_i is p(2*i) and p_{i+1/2} is p(2*i+1)
+      genid++;
+    }
 
-      for (size_t i = 2; i <= 2*l; ++i) {
-          rels.push_back({{p[i], p[i]}, {p[i]}});
+    for (size_t i = 2; i <= 2 * l; ++i) {
+      rels.push_back({{p[i], p[i]}, {p[i]}});
+    }
+    for (size_t i = 3; i <= 2 * l; ++i) {
+      rels.push_back({{p[i], p[i - 1], p[i]}, {p[i]}});
+    }
+    for (size_t i = 2; i < 2 * l; ++i) {
+      rels.push_back({{p[i], p[i + 1], p[i]}, {p[i]}});
+    }
+    for (size_t i = 2; i < 2 * l; ++i) {
+      for (size_t j = i + 2; j <= 2 * l; ++j) {
+        rels.push_back({{p[i], p[j]}, {p[j], p[i]}});
       }
-      for (size_t i = 3; i <= 2*l; ++i) {
-          rels.push_back({{p[i], p[i-1], p[i]}, {p[i]}});
-      }
-      for (size_t i = 2; i < 2*l; ++i) {
-          rels.push_back({{p[i], p[i+1], p[i]}, {p[i]}});
-      }
-      for (size_t i = 2; i < 2*l; ++i) {
-          for (size_t j = i + 2; j <= 2*l; ++j) {
-              rels.push_back({{p[i], p[j]}, {p[j], p[i]}});
-          }
-      }
+    }
 
     return rels;
   }
 
-
   std::vector<relation_type> PartitionMonoid(size_t l, int q) {
     // q is supposed to be 0 or 1
 
-      std::vector<size_t> s, p;
-      std::vector<relation_type> rels{};
+    std::vector<size_t>        s, p;
+    std::vector<relation_type> rels{};
 
-      size_t id = 0; // the identity
-      size_t genid = 1;
-      s.push_back(0); // unused
-      for (size_t i = 1; i < l; ++i) {
-          s.push_back(genid);  // s_i is s[i]
-          genid++;
-      }
-      p.push_back(0); p.push_back(0); // unused
-      for (size_t i = 2; i <= 2*l; ++i) {
-          p.push_back(genid);   // p_i is p(2*i) and p_{i+1/2} is p(2*i+1)
-          genid++;
-      }
+    size_t id    = 0;  // the identity
+    size_t genid = 1;
+    s.push_back(0);  // unused
+    for (size_t i = 1; i < l; ++i) {
+      s.push_back(genid);  // s_i is s[i]
+      genid++;
+    }
+    p.push_back(0);
+    p.push_back(0);  // unused
+    for (size_t i = 2; i <= 2 * l; ++i) {
+      p.push_back(genid);  // p_i is p(2*i) and p_{i+1/2} is p(2*i+1)
+      genid++;
+    }
     switch (q) {
       case 0:
         for (size_t i = 1; i < l; ++i)
-            rels.push_back({{s[i], s[i]}, {s[i]}});
+          rels.push_back({{s[i], s[i]}, {s[i]}});
         break;
       case 1:
         for (size_t i = 1; i < l; ++i)
-            rels.push_back({{s[i], s[i]}, {id}});
+          rels.push_back({{s[i], s[i]}, {id}});
         break;
         // default: assert(FALSE)
     }
@@ -454,40 +455,42 @@ namespace libsemigroups {
       rels.push_back({{s[i], s[i + 1], s[i]}, {s[i + 1], s[i], s[i + 1]}});
     }
 
-
-      for (size_t i = 2; i <= 2*l; ++i) {
-          rels.push_back({{p[i], p[i]}, {p[i]}});
+    for (size_t i = 2; i <= 2 * l; ++i) {
+      rels.push_back({{p[i], p[i]}, {p[i]}});
+    }
+    for (size_t i = 3; i <= 2 * l; ++i) {
+      rels.push_back({{p[i], p[i - 1], p[i]}, {p[i]}});
+    }
+    for (size_t i = 2; i < 2 * l; ++i) {
+      rels.push_back({{p[i], p[i + 1], p[i]}, {p[i]}});
+    }
+    for (size_t i = 2; i < 2 * l; ++i) {
+      for (size_t j = i + 2; j <= 2 * l; ++j) {
+        rels.push_back({{p[i], p[j]}, {p[j], p[i]}});
       }
-      for (size_t i = 3; i <= 2*l; ++i) {
-          rels.push_back({{p[i], p[i-1], p[i]}, {p[i]}});
-      }
-      for (size_t i = 2; i < 2*l; ++i) {
-          rels.push_back({{p[i], p[i+1], p[i]}, {p[i]}});
-      }
-      for (size_t i = 2; i < 2*l; ++i) {
-          for (size_t j = i + 2; j <= 2*l; ++j) {
-              rels.push_back({{p[i], p[j]}, {p[j], p[i]}});
-          }
-      }
+    }
 
     for (size_t i = 1; i < l; ++i) {
-        rels.push_back({{s[i], p[2*i], p[2*(i+1)]}, {p[2*i], p[2*(i+1)]}});
-        rels.push_back({{p[2*(i+1)], p[2*i], s[i]}, {p[2*i], p[2*(i+1)]}});
+      rels.push_back(
+          {{s[i], p[2 * i], p[2 * (i + 1)]}, {p[2 * i], p[2 * (i + 1)]}});
+      rels.push_back(
+          {{p[2 * (i + 1)], p[2 * i], s[i]}, {p[2 * i], p[2 * (i + 1)]}});
     }
     for (size_t i = 1; i < l; ++i) {
-        rels.push_back({{s[i],p[2*i+1]}, {p[2*i+1]}});
-        rels.push_back({{p[2*i+1],s[i]}, {p[2*i+1]}});
-        rels.push_back({{s[i],p[2*i],s[i]}, {p[2*(i+1)]}});
+      rels.push_back({{s[i], p[2 * i + 1]}, {p[2 * i + 1]}});
+      rels.push_back({{p[2 * i + 1], s[i]}, {p[2 * i + 1]}});
+      rels.push_back({{s[i], p[2 * i], s[i]}, {p[2 * (i + 1)]}});
     }
     for (size_t i = 1; i < l - 1; ++i) {
-        rels.push_back({{s[i],s[i+1],p[2*i+1],s[i+1],s[i]}, {p[2*i+3]}});
+      rels.push_back(
+          {{s[i], s[i + 1], p[2 * i + 1], s[i + 1], s[i]}, {p[2 * i + 3]}});
     }
 
     for (size_t i = 1; i < l; ++i) {
-        for (size_t j = 2; j <= 2*l; ++j) {
-            if ((j < 2*i - 1) || (j > 2*i+3))
-                rels.push_back({{s[i], p[j]}, {p[j], s[i]}});
-        }
+      for (size_t j = 2; j <= 2 * l; ++j) {
+        if ((j < 2 * i - 1) || (j > 2 * i + 3))
+          rels.push_back({{s[i], p[j]}, {p[j], s[i]}});
+      }
     }
     return rels;
   }
@@ -495,27 +498,32 @@ namespace libsemigroups {
   std::vector<relation_type> EastPartitionMonoid(size_t l, int q) {
     // q is supposed to be 0 or 1
 
-      std::vector<size_t> s;
-      std::vector<relation_type> rels{};
+    std::vector<size_t>        s;
+    std::vector<relation_type> rels{};
 
-      size_t id = 0; // the identity
-      size_t genid = 1;
-      s.push_back(0); // unused
-      for (size_t i = 1; i < l; ++i) {
-          s.push_back(genid);  // s_i is s[i]
-          genid++;
-      }
-      size_t t = genid;
+    size_t id = 0;  // the identity
+    rels.push_back({{0, 0}, {0}});
+    size_t genid = 1;
+    s.push_back(0);  // unused
+    for (size_t i = 1; i < l; ++i) {
+      s.push_back(genid);  // s_i is s[i]
+      rels.push_back({{genid, 0}, {genid}});
+      rels.push_back({{0, genid}, {genid}});
       genid++;
-      
+    }
+    size_t t = genid;
+    rels.push_back({{genid, 0}, {genid}});
+    rels.push_back({{0, genid}, {genid}});
+    genid++;
+
     switch (q) {
       case 0:
         for (size_t i = 1; i < l; ++i)
-            rels.push_back({{s[i], s[i]}, {s[i]}});
+          rels.push_back({{s[i], s[i]}, {s[i]}});
         break;
       case 1:
         for (size_t i = 1; i < l; ++i)
-            rels.push_back({{s[i], s[i]}, {id}});
+          rels.push_back({{s[i], s[i]}, {id}});
         break;
         // default: assert(FALSE)
     }
@@ -535,19 +543,17 @@ namespace libsemigroups {
     rels.push_back({{s[1], t}, {t}});
 
     for (size_t i = 3; i < l; ++i) {
-        rels.push_back({{t, s[i]}, {s[i], t}});
+      rels.push_back({{t, s[i]}, {s[i], t}});
     }
     if (l > 2) {
-        rels.push_back({{t, s[2], t, s[2]}, {s[2], t, s[2], t}});
-        rels.push_back({{t, s[2], t, s[2]}, {t, s[2], t}});
+      rels.push_back({{t, s[2], t, s[2]}, {s[2], t, s[2], t}});
+      rels.push_back({{t, s[2], t, s[2]}, {t, s[2], t}});
     }
     if (l > 3)
-    rels.push_back({
-            {t, s[2], s[1], s[3], s[2], t, s[2], s[3], s[1], s[2]},
-            {s[2], s[1], s[3], s[2], t, s[2], s[3], s[1], s[2], t}});
+      rels.push_back({{t, s[2], s[1], s[3], s[2], t, s[2], s[3], s[1], s[2]},
+                      {s[2], s[1], s[3], s[2], t, s[2], s[3], s[1], s[2], t}});
 
     return rels;
   }
-
 
 }  // namespace libsemigroups
