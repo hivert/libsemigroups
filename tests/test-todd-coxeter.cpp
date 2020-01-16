@@ -1765,8 +1765,15 @@ namespace libsemigroups {
       C.standardize(order::shortlex);
 
       for (size_t nc = 0; nc < C.nr_classes(); nc++) {
-        std::cout << C.class_index_to_word(nc) << std::endl;
+          auto w =  C.class_index_to_word(nc);
+          for (auto const &wrd : shortlex_words(C.nr_generators(),
+                                                w.size(), w.size())) {
+              if (C.word_to_class_index(wrd) == nc) 
+                  std::cout << C.class_index_to_word(nc) << " ";
+          }
+          std::cout << std::endl;
       }
+
       REQUIRE(C.nr_classes() == 131);
     }
 

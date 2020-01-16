@@ -1075,7 +1075,7 @@ namespace libsemigroups {
     auto        rg = ReportGuard(REPORT);
     FpSemigroup S;
     S.set_alphabet(5);
-    S.set_identity(0);
+    // S.set_identity(0);
     for (relation_type const& rl : EastPartitionMonoid(4, 1)) {
       S.add_rule(rl);
     }
