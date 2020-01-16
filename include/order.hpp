@@ -33,7 +33,12 @@
 #include "types.hpp"  // for word_type
 
 namespace libsemigroups {
-  std::vector<word_type> shortlex_words(size_t nr_gens, size_t len);
+  std::vector<word_type>        shortlex_words(size_t nr_gens,
+                                               size_t minlen,
+                                               size_t maxlen);
+  inline std::vector<word_type> shortlex_words(size_t nr_gens, size_t len) {
+    return shortlex_words(nr_gens, 1, len);
+  }
 
   //! Defined in ``order.hpp``.
   //!

@@ -25,14 +25,17 @@
 #include <vector>     // for vector
 
 namespace libsemigroups {
-  std::vector<word_type> shortlex_words(size_t nr_gens, size_t len) {
+  std::vector<word_type> shortlex_words(size_t nr_gens,
+                                        size_t minlen,
+                                        size_t maxlen) {
     std::vector<word_type> out;
+    size_t                 cut = 0;
     for (size_t i = 0; i < nr_gens; ++i) {
       out.push_back({i});
     }
     size_t frst = 0;
     size_t last = nr_gens;
-    for (size_t i = 2; i <= len; ++i) {
+    for (size_t i = 2; i <= maxlen; ++i) {
       for (size_t j = frst; j < last; ++j) {
         for (size_t k = 0; k < nr_gens; ++k) {
           word_type nxt = out.at(j);
@@ -40,9 +43,13 @@ namespace libsemigroups {
           out.push_back(nxt);
         }
       }
+      if (i == minlen) {
+        cut = last;
+      }
       frst = last;
       last = out.size();
     }
+    out.erase(out.begin(), out.begin() + cut);
     return out;
   }
 }  // namespace libsemigroups
