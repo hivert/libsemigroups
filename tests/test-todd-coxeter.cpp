@@ -679,8 +679,8 @@ namespace libsemigroups {
 
       REQUIRE(tc.word_to_class_index(
                   S.factorisation(Transformation<uint16_t>({1, 3, 1, 3, 3})))
-              == tc.word_to_class_index(
-                  S.factorisation(Transformation<uint16_t>({4, 2, 4, 4, 2}))));
+              == tc.word_to_class_index(S.factorisation(
+                     Transformation<uint16_t>({4, 2, 4, 4, 2}))));
 
       tc.standardize(order::shortlex);
       REQUIRE(tc.nr_non_trivial_classes() == 1);
@@ -713,8 +713,8 @@ namespace libsemigroups {
 
       REQUIRE(tc.word_to_class_index(
                   S.factorisation(Transformation<uint16_t>({1, 3, 1, 3, 3})))
-              != tc.word_to_class_index(
-                  S.factorisation(Transformation<uint16_t>({4, 2, 4, 4, 2}))));
+              != tc.word_to_class_index(S.factorisation(
+                     Transformation<uint16_t>({4, 2, 4, 4, 2}))));
 
       tc.standardize(order::shortlex);
       REQUIRE(tc.nr_non_trivial_classes() == 1);
@@ -747,21 +747,21 @@ namespace libsemigroups {
 
       REQUIRE(tc.word_to_class_index(
                   S.factorisation(Transformation<uint16_t>({1, 3, 1, 3, 3})))
-              != tc.word_to_class_index(
-                  S.factorisation(Transformation<uint16_t>({4, 2, 4, 4, 2}))));
+              != tc.word_to_class_index(S.factorisation(
+                     Transformation<uint16_t>({4, 2, 4, 4, 2}))));
 
       REQUIRE(tc.word_to_class_index(
                   S.factorisation(Transformation<uint16_t>({1, 3, 3, 3, 3})))
-              != tc.word_to_class_index(
-                  S.factorisation(Transformation<uint16_t>({4, 2, 4, 4, 2}))));
+              != tc.word_to_class_index(S.factorisation(
+                     Transformation<uint16_t>({4, 2, 4, 4, 2}))));
       REQUIRE(tc.word_to_class_index(
                   S.factorisation(Transformation<uint16_t>({2, 4, 2, 2, 2})))
-              == tc.word_to_class_index(
-                  S.factorisation(Transformation<uint16_t>({2, 3, 3, 3, 3}))));
+              == tc.word_to_class_index(S.factorisation(
+                     Transformation<uint16_t>({2, 3, 3, 3, 3}))));
       REQUIRE(tc.word_to_class_index(
                   S.factorisation(Transformation<uint16_t>({1, 3, 3, 3, 3})))
-              != tc.word_to_class_index(
-                  S.factorisation(Transformation<uint16_t>({2, 3, 3, 3, 3}))));
+              != tc.word_to_class_index(S.factorisation(
+                     Transformation<uint16_t>({2, 3, 3, 3, 3}))));
 
       tc.standardize(order::shortlex);
       REQUIRE(tc.nr_non_trivial_classes() == 4);
@@ -1188,28 +1188,30 @@ namespace libsemigroups {
       S.run();
       std::vector<TCE> v(S.cbegin(), S.cend());
       std::sort(v.begin(), v.end());
-      REQUIRE(v
-              == std::vector<TCE>(
-                  {TCE(v[0], 1),  TCE(v[0], 2),  TCE(v[0], 3),  TCE(v[0], 4),
-                   TCE(v[0], 5),  TCE(v[0], 6),  TCE(v[0], 7),  TCE(v[0], 8),
-                   TCE(v[0], 9),  TCE(v[0], 10), TCE(v[0], 11), TCE(v[0], 12),
-                   TCE(v[0], 13), TCE(v[0], 14), TCE(v[0], 15), TCE(v[0], 16),
-                   TCE(v[0], 17), TCE(v[0], 18), TCE(v[0], 19), TCE(v[0], 20),
-                   TCE(v[0], 21), TCE(v[0], 22), TCE(v[0], 23), TCE(v[0], 24),
-                   TCE(v[0], 25), TCE(v[0], 26), TCE(v[0], 27), TCE(v[0], 28),
-                   TCE(v[0], 29), TCE(v[0], 30), TCE(v[0], 31), TCE(v[0], 32),
-                   TCE(v[0], 33), TCE(v[0], 34)}));
-      REQUIRE(std::vector<TCE>(S.cbegin_sorted(), S.cend_sorted())
-              == std::vector<TCE>(
-                  {TCE(v[0], 1),  TCE(v[0], 2),  TCE(v[0], 3),  TCE(v[0], 4),
-                   TCE(v[0], 5),  TCE(v[0], 6),  TCE(v[0], 7),  TCE(v[0], 8),
-                   TCE(v[0], 9),  TCE(v[0], 10), TCE(v[0], 11), TCE(v[0], 12),
-                   TCE(v[0], 13), TCE(v[0], 14), TCE(v[0], 15), TCE(v[0], 16),
-                   TCE(v[0], 17), TCE(v[0], 18), TCE(v[0], 19), TCE(v[0], 20),
-                   TCE(v[0], 21), TCE(v[0], 22), TCE(v[0], 23), TCE(v[0], 24),
-                   TCE(v[0], 25), TCE(v[0], 26), TCE(v[0], 27), TCE(v[0], 28),
-                   TCE(v[0], 29), TCE(v[0], 30), TCE(v[0], 31), TCE(v[0], 32),
-                   TCE(v[0], 33), TCE(v[0], 34)}));
+      REQUIRE(
+          v
+          == std::vector<TCE>(
+                 {TCE(v[0], 1),  TCE(v[0], 2),  TCE(v[0], 3),  TCE(v[0], 4),
+                  TCE(v[0], 5),  TCE(v[0], 6),  TCE(v[0], 7),  TCE(v[0], 8),
+                  TCE(v[0], 9),  TCE(v[0], 10), TCE(v[0], 11), TCE(v[0], 12),
+                  TCE(v[0], 13), TCE(v[0], 14), TCE(v[0], 15), TCE(v[0], 16),
+                  TCE(v[0], 17), TCE(v[0], 18), TCE(v[0], 19), TCE(v[0], 20),
+                  TCE(v[0], 21), TCE(v[0], 22), TCE(v[0], 23), TCE(v[0], 24),
+                  TCE(v[0], 25), TCE(v[0], 26), TCE(v[0], 27), TCE(v[0], 28),
+                  TCE(v[0], 29), TCE(v[0], 30), TCE(v[0], 31), TCE(v[0], 32),
+                  TCE(v[0], 33), TCE(v[0], 34)}));
+      REQUIRE(
+          std::vector<TCE>(S.cbegin_sorted(), S.cend_sorted())
+          == std::vector<TCE>(
+                 {TCE(v[0], 1),  TCE(v[0], 2),  TCE(v[0], 3),  TCE(v[0], 4),
+                  TCE(v[0], 5),  TCE(v[0], 6),  TCE(v[0], 7),  TCE(v[0], 8),
+                  TCE(v[0], 9),  TCE(v[0], 10), TCE(v[0], 11), TCE(v[0], 12),
+                  TCE(v[0], 13), TCE(v[0], 14), TCE(v[0], 15), TCE(v[0], 16),
+                  TCE(v[0], 17), TCE(v[0], 18), TCE(v[0], 19), TCE(v[0], 20),
+                  TCE(v[0], 21), TCE(v[0], 22), TCE(v[0], 23), TCE(v[0], 24),
+                  TCE(v[0], 25), TCE(v[0], 26), TCE(v[0], 27), TCE(v[0], 28),
+                  TCE(v[0], 29), TCE(v[0], 30), TCE(v[0], 31), TCE(v[0], 32),
+                  TCE(v[0], 33), TCE(v[0], 34)}));
       REQUIRE(detail::to_string(TCE(v[0], 1)) == "TCE(1)");
 
       std::ostringstream oss;
@@ -1472,7 +1474,7 @@ namespace libsemigroups {
       REQUIRE(std::vector<relation_type>(tc->cbegin_generating_pairs(),
                                          tc->cend_generating_pairs())
               == std::vector<relation_type>(
-                  {{{1, 1}, {2}}, {{2, 0, 2}, {0, 1, 0}}, {{1}, {2}}}));
+                     {{{1, 1}, {2}}, {{2, 0, 2}, {0, 1, 0}}, {{1}, {2}}}));
       REQUIRE(!tc->finished());
       REQUIRE(!tc->started());
       tc->add_pair({1}, {0});
@@ -1522,7 +1524,7 @@ namespace libsemigroups {
       REQUIRE(std::vector<relation_type>(tc->cbegin_generating_pairs(),
                                          tc->cend_generating_pairs())
               == std::vector<relation_type>(
-                  {{{1, 1}, {2}}, {{2, 0, 2}, {0, 1, 0}}, {{1}, {2}}}));
+                     {{{1, 1}, {2}}, {{2, 0, 2}, {0, 1, 0}}, {{1}, {2}}}));
       tc->add_pair({1}, {0});
       REQUIRE(!tc->is_quotient_obviously_infinite());
       REQUIRE(tc->nr_classes() == 1);
@@ -1744,6 +1746,30 @@ namespace libsemigroups {
       REQUIRE(copy.complete());
       REQUIRE(copy.compatible());
     }
+
+    LIBSEMIGROUPS_TEST_CASE("FpSemigroup",
+                            "101",
+                            "EastPartitionMonoid(4, q=0)",
+                            "[quick]") {
+      auto rg = ReportGuard();
+
+      ToddCoxeter C(congruence_type::twosided);
+
+      C.set_nr_generators(5);
+
+      for (relation_type const& rl : EastPartitionMonoid(4, 1)) {
+        C.add_pair(rl.first, rl.second);
+      }
+
+      C.run();
+      C.standardize(order::shortlex);
+
+      for (size_t nc = 0; nc < C.nr_classes(); nc++) {
+        std::cout << C.class_index_to_word(nc) << std::endl;
+      }
+      REQUIRE(C.nr_classes() == 131);
+    }
+
   }  // namespace congruence
 
   namespace fpsemigroup {

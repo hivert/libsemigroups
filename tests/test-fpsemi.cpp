@@ -27,10 +27,10 @@
 #include "froidure-pin.hpp"       // for FroidurePin<>::element_index_type
 #include "knuth-bendix.hpp"       // for KnuthBendix
 #include "report.hpp"             // for ReportGuard
+#include "string.hpp"             // for printing relations
 #include "test-main.hpp"
 #include "todd-coxeter.hpp"  // for ToddCoxeter
 #include "types.hpp"         // for relation_type
-#include "string.hpp"         // for printing relations
 
 namespace libsemigroups {
 
@@ -930,7 +930,6 @@ namespace libsemigroups {
                           "044",
                           "PlanarPartitionMonoid(1)",
                           "[quick]") {
-
     auto        rg = ReportGuard(REPORT);
     FpSemigroup S;
     S.set_alphabet(2);
@@ -947,7 +946,6 @@ namespace libsemigroups {
                           "045",
                           "PlanarPartitionMonoid(2)",
                           "[quick]") {
-
     auto        rg = ReportGuard(REPORT);
     FpSemigroup S;
     S.set_alphabet(4);
@@ -963,7 +961,6 @@ namespace libsemigroups {
                           "046",
                           "PlanarPartitionMonoid(3)",
                           "[quick]") {
-
     auto        rg = ReportGuard(REPORT);
     FpSemigroup S;
     S.set_alphabet(6);
@@ -979,7 +976,6 @@ namespace libsemigroups {
                           "047",
                           "PlanarPartitionMonoid(8)",
                           "[extreme]") {
-
     auto        rg = ReportGuard();
     FpSemigroup S;
     S.set_alphabet(16);
@@ -995,7 +991,6 @@ namespace libsemigroups {
                           "048",
                           "PartitionMonoid(2)",
                           "[quick]") {
-
     auto        rg = ReportGuard(REPORT);
     FpSemigroup S;
     S.set_alphabet(5);
@@ -1013,7 +1008,6 @@ namespace libsemigroups {
                           "049",
                           "PartitionMonoid(3)",
                           "[quick]") {
-
     auto        rg = ReportGuard(REPORT);
     FpSemigroup S;
     S.set_alphabet(8);
@@ -1027,12 +1021,10 @@ namespace libsemigroups {
     REQUIRE(S.size() == 203);
   }
 
-
   LIBSEMIGROUPS_TEST_CASE("FpSemigroup",
                           "050",
                           "PartitionMonoid(5)",
                           "[standard]") {
-
     auto        rg = ReportGuard(REPORT);
     FpSemigroup S;
     S.set_alphabet(14);
@@ -1050,7 +1042,6 @@ namespace libsemigroups {
                           "051",
                           "EastPartitionMonoid(2)",
                           "[quick]") {
-
     auto        rg = ReportGuard(REPORT);
     FpSemigroup S;
     S.set_alphabet(3);
@@ -1066,7 +1057,6 @@ namespace libsemigroups {
                           "052",
                           "EastPartitionMonoid(3)",
                           "[quick]") {
-
     auto        rg = ReportGuard(REPORT);
     FpSemigroup S;
     S.set_alphabet(4);
@@ -1082,7 +1072,6 @@ namespace libsemigroups {
                           "053",
                           "EastPartitionMonoid(4)",
                           "[quick]") {
-
     auto        rg = ReportGuard(REPORT);
     FpSemigroup S;
     S.set_alphabet(5);
@@ -1098,7 +1087,6 @@ namespace libsemigroups {
                           "054",
                           "EastPartitionMonoid(5)",
                           "[quick]") {
-
     auto        rg = ReportGuard(REPORT);
     FpSemigroup S;
     S.set_alphabet(6);
@@ -1116,7 +1104,6 @@ namespace libsemigroups {
                           "055",
                           "EastPartitionMonoid(2, q=0)",
                           "[quick]") {
-
     auto        rg = ReportGuard();
     FpSemigroup S;
     S.set_alphabet(3);
@@ -1135,7 +1122,6 @@ namespace libsemigroups {
                           "056",
                           "EastPartitionMonoid(3, q=0)",
                           "[quick]") {
-
     auto        rg = ReportGuard();
     FpSemigroup S;
     S.set_alphabet(4);
@@ -1151,7 +1137,6 @@ namespace libsemigroups {
                           "057",
                           "EastPartitionMonoid(4, q=0)",
                           "[quick]") {
-
     auto        rg = ReportGuard();
     FpSemigroup S;
     S.set_alphabet(5);
@@ -1167,7 +1152,6 @@ namespace libsemigroups {
                           "058",
                           "EastPartitionMonoid(5, q=0)",
                           "[quick]") {
-
     auto        rg = ReportGuard();
     FpSemigroup S;
     S.set_alphabet(6);
